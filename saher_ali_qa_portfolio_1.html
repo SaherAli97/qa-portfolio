@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saher Hamada Ali — QA Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171C;
+    --ink-2:#1D2129;
+    --paper:#F7F5F1;
+    --paper-dim:#EDEAE2;
+    --pass:#2E7D5B;
+    --pass-dim:#DCEAE2;
+    --bug:#B8402A;
+    --bug-dim:#F3E1DB;
+    --pending:#B9821F;
+    --pending-dim:#F1E5CC;
+    --slate:#3D4552;
+    --slate-light:#6B7280;
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---- NAV ---- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,245,241,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-dim);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:16px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:10px;
+  }
+  .nav-brand{font-family:var(--mono); font-weight:600; font-size:14px; letter-spacing:0.02em;}
+  .nav-links{display:flex; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:13px;}
+  .nav-links a{text-decoration:none; color:var(--slate); border-bottom:1px solid transparent; padding-bottom:2px; transition:all .15s ease;}
+  .nav-links a:hover{color:var(--ink); border-color:var(--pass);}
+
+  /* ---- HERO / TERMINAL ---- */
+  header.hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:64px 0 48px;
+  }
+  .terminal{
+    background:var(--ink-2);
+    border:1px solid #2B313C;
+    border-radius:8px;
+    overflow:hidden;
+    font-family:var(--mono);
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:#20242C;
+    border-bottom:1px solid #2B313C;
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#C4442E;} .dot.y{background:#C98A2D;} .dot.g{background:#2E7D5B;}
+  .terminal-title{margin-left:8px; font-size:12px; color:#8B93A1;}
+  .terminal-body{padding:22px 20px 26px; font-size:14px;}
+  .term-line{color:#8B93A1; margin-bottom:10px;}
+  .term-prompt{color:#5FD68F;}
+  #typed-lines .line{
+    opacity:0; transform:translateY(4px);
+    display:flex; gap:10px; align-items:flex-start;
+    margin-bottom:9px;
+    animation:reveal .4s ease forwards;
+  }
+  .check{color:#5FD68F; font-weight:600;}
+  .line-text{color:#E7E5DE;}
+  .line-dim{color:#8B93A1;}
+  @keyframes reveal{ to{opacity:1; transform:translateY(0);} }
+
+  .hero-head{margin-top:34px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
+    color:#8B93A1; text-transform:uppercase; margin-bottom:10px;
+  }
+  h1{
+    font-family:var(--sans); font-weight:700;
+    font-size:clamp(32px, 5vw, 46px);
+    line-height:1.1;
+    margin-bottom:14px;
+  }
+  .hero-sub{
+    color:#C9CBD1; font-size:17px; max-width:560px; margin-bottom:26px;
+  }
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:13px; font-weight:600;
+    padding:12px 20px; border-radius:6px; text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:#5FD68F; color:#0E1712;}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 8px 20px rgba(95,214,143,0.25);}
+  .btn-ghost{border:1px solid #3A4150; color:#E7E5DE;}
+  .btn-ghost:hover{border-color:#5FD68F; color:#5FD68F;}
+
+  /* ---- SECTION SCAFFOLD ---- */
+  section{padding:64px 0;}
+  .sec-head{margin-bottom:34px;}
+  .sec-eyebrow{
+    font-family:var(--mono); font-size:12px; color:var(--slate-light);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;
+  }
+  .sec-title{font-size:26px; font-weight:700;}
+  .divider{height:1px; background:var(--paper-dim); margin:0 auto;}
+
+  /* ---- PROFILE ---- */
+  .profile-text{font-size:16px; color:var(--slate); max-width:680px;}
+  .meta-row{
+    display:flex; gap:22px; flex-wrap:wrap; margin-top:22px;
+    font-family:var(--mono); font-size:13px; color:var(--slate-light);
+  }
+  .meta-row span{display:flex; gap:6px; align-items:center;}
+
+  /* ---- EXPERIENCE (TICKETS) ---- */
+  .ticket{
+    background:#fff;
+    border:1px solid var(--paper-dim);
+    border-left:3px solid var(--pass);
+    border-radius:8px;
+    padding:22px 24px;
+    margin-bottom:16px;
+  }
+  .ticket.resolved{border-left-color:#C7C2B5;}
+  .ticket-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; flex-wrap:wrap; margin-bottom:10px;
+  }
+  .ticket-id{font-family:var(--mono); font-size:12px; color:var(--slate-light);}
+  .ticket-role{font-size:17px; font-weight:700; margin-top:2px;}
+  .ticket-org{color:var(--slate); font-size:14px; margin-top:1px;}
+  .status-badge{
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    padding:5px 10px; border-radius:20px; white-space:nowrap;
+    display:flex; align-items:center; gap:6px;
+  }
+  .status-active{background:var(--pass-dim); color:var(--pass);}
+  .status-resolved{background:var(--paper-dim); color:var(--slate-light);}
+  .pulse{width:6px; height:6px; border-radius:50%; background:var(--pass); animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.3;}}
+  .ticket-dates{font-family:var(--mono); font-size:12px; color:var(--slate-light); margin-bottom:12px;}
+  .ticket ul{padding-left:18px; color:var(--slate); font-size:14.5px;}
+  .ticket ul li{margin-bottom:6px;}
+
+  /* ---- SKILLS ---- */
+  .skill-group{margin-bottom:26px;}
+  .skill-group-label{
+    font-family:var(--mono); font-size:12px; color:var(--slate-light);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px;
+  }
+  .tags{display:flex; gap:9px; flex-wrap:wrap;}
+  .tag{
+    font-family:var(--mono); font-size:13px; padding:6px 12px;
+    border-radius:5px; border:1px solid; font-weight:500;
+  }
+  .tag.tools{border-color:var(--pass); color:var(--pass); background:var(--pass-dim);}
+  .tag.lang{border-color:var(--bug); color:var(--bug); background:var(--bug-dim);}
+  .tag.practice{border-color:var(--pending); color:var(--pending); background:var(--pending-dim);}
+
+  /* ---- PROJECTS ---- */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:680px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{
+    background:#fff; border:1px solid var(--paper-dim); border-radius:8px;
+    padding:22px; display:flex; flex-direction:column; gap:10px;
+  }
+  .proj-top{display:flex; justify-content:space-between; align-items:center;}
+  .proj-id{font-family:var(--mono); font-size:11px; color:var(--slate-light);}
+  .proj-type{
+    font-family:var(--mono); font-size:10px; padding:3px 8px; border-radius:20px;
+    background:var(--paper-dim); color:var(--slate);
+  }
+  .proj-title{font-size:16.5px; font-weight:700;}
+  .proj-desc{font-size:14px; color:var(--slate);}
+  .proj-metric{
+    font-family:var(--mono); font-size:12.5px; color:var(--pass); font-weight:600;
+    display:flex; gap:6px; align-items:center; margin-top:auto; padding-top:8px;
+  }
+  .proj-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .proj-tags span{
+    font-family:var(--mono); font-size:11px; color:var(--slate-light);
+    background:var(--paper-dim); padding:3px 8px; border-radius:4px;
+  }
+
+  /* ---- EDUCATION / CERTS ---- */
+  .creds{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media(max-width:680px){.creds{grid-template-columns:1fr;}}
+  .creds h4{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--slate-light); margin-bottom:12px;}
+  .creds li{list-style:none; margin-bottom:10px; font-size:14.5px; color:var(--slate); padding-left:16px; position:relative;}
+  .creds li:before{content:"✓"; position:absolute; left:0; color:var(--pass); font-weight:700;}
+  .creds strong{color:var(--ink);}
+
+  /* ---- CONTACT / FOOTER ---- */
+  footer{
+    background:var(--ink); color:var(--paper); padding:60px 0 40px;
+  }
+  .contact-box{text-align:center;}
+  .contact-title{font-size:26px; font-weight:700; margin-bottom:10px;}
+  .contact-sub{color:#C9CBD1; margin-bottom:26px; font-size:15px;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .foot-note{
+    text-align:center; margin-top:44px; font-family:var(--mono);
+    font-size:12px; color:#6B7280;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Saher_Hamada_Ali.qa</div>
+    <div class="nav-links">
+      <a href="#profile">profile</a>
+      <a href="#experience">experience</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+      <a href="https://github.com/SaherAli97" target="_blank" rel="noopener">github ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="terminal-title">test_suite — portfolio.run()</span>
+      </div>
+      <div class="terminal-body">
+        <div class="term-line"><span class="term-prompt">$</span> run portfolio_summary --for="Saher Hamada Ali"</div>
+        <div id="typed-lines">
+          <div class="line" style="animation-delay:.1s"><span class="check">✓</span><span class="line-text">2.5+ years experience</span><span class="line-dim">— freelance + full-time</span></div>
+          <div class="line" style="animation-delay:.4s"><span class="check">✓</span><span class="line-text">100+ test cases authored</span><span class="line-dim">— Zephyr</span></div>
+          <div class="line" style="animation-delay:.7s"><span class="check">✓</span><span class="line-text">+30% app rating improvement</span><span class="line-dim">— manual testing on live mobile apps</span></div>
+          <div class="line" style="animation-delay:1.0s"><span class="check">✓</span><span class="line-text">Web + mobile coverage</span><span class="line-dim">— manual & Selenium/TestNG automation</span></div>
+        </div>
+        <div class="term-line" style="margin-top:8px; margin-bottom:0;"><span class="term-prompt">$</span> <span style="opacity:.6;">_</span></div>
+      </div>
+    </div>
+
+    <div class="hero-head">
+      <div class="eyebrow">Available for freelance QA engagements</div>
+      <h1>Saher Hamada Ali</h1>
+      <p class="hero-sub">Software QA Engineer testing web and mobile applications end to end — manual test design, Selenium/TestNG automation, API testing, and bug tracking that ships cleaner releases.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:saherhamada97@gmail.com">Email Saher →</a>
+        <a class="btn btn-ghost" href="#projects">See project case studies</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">01 / Profile</div>
+      <div class="sec-title">What I do</div>
+    </div>
+    <p class="profile-text">I test web and mobile products for defects before your users find them — designing structured test cases, running manual and automated regression passes, and documenting bugs with enough detail that developers can fix them on the first try. I've worked inside enterprise delivery teams (Sumerge, on HRSD-backed platforms) and independently on high-traffic consumer apps, so I adapt to sprint-based QA or standalone freelance testing engagements equally well.</p>
+    <div class="meta-row">
+      <span>📍 Cairo, Egypt (remote-friendly)</span>
+      <span>✉️ saherhamada97@gmail.com</span>
+      <span>💻 <a href="https://github.com/SaherAli97" target="_blank" rel="noopener" style="text-decoration:underline;">github.com/SaherAli97</a></span>
+      <span>🎓 B.Sc. Electrical Engineering, Future University in Egypt</span>
+    </div>
+  </div>
+  <div class="wrap"><div class="divider"></div></div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">02 / Experience</div>
+      <div class="sec-title">Work history</div>
+    </div>
+
+    <div class="ticket">
+      <div class="ticket-top">
+        <div>
+          <div class="ticket-id">TICKET-01</div>
+          <div class="ticket-role">Quality Engineer</div>
+          <div class="ticket-org">Sumerge · Cairo, Egypt</div>
+        </div>
+        <div class="status-badge status-active"><span class="pulse"></span>ACTIVE</div>
+      </div>
+      <div class="ticket-dates">Oct 2025 — Present</div>
+      <ul>
+        <li>Testing a large-scale government-sector web platform: writing detailed test cases and running manual + automated testing against business requirements.</li>
+        <li>Building and maintaining Selenium + Java + TestNG automation scripts, improving coverage and cutting manual testing time.</li>
+        <li>Writing user guides and running client product demos to support onboarding.</li>
+        <li>Working cross-functionally to identify, document, and track defects through resolution.</li>
+      </ul>
+    </div>
+
+    <div class="ticket resolved">
+      <div class="ticket-top">
+        <div>
+          <div class="ticket-id">TICKET-02</div>
+          <div class="ticket-role">Junior Software Testing &amp; QA Engineer</div>
+          <div class="ticket-org">Elnady Company (Octopi team) · Cairo, Egypt</div>
+        </div>
+        <div class="status-badge status-resolved">✓ RESOLVED</div>
+      </div>
+      <div class="ticket-dates">Nov 2024 — Sep 2025</div>
+      <ul>
+        <li>Designed, documented, and executed test cases across web and mobile applications.</li>
+        <li>Filed precise bug reports in Jira, including full reproduction steps, and ran regression/functional testing on major releases.</li>
+        <li>Partnered with developers to troubleshoot issues and joined sprint planning as the QA voice.</li>
+      </ul>
+    </div>
+
+    <div class="ticket resolved">
+      <div class="ticket-top">
+        <div>
+          <div class="ticket-id">TICKET-03</div>
+          <div class="ticket-role">Junior Software Testing</div>
+          <div class="ticket-org">Vultara Inc. · Remote</div>
+        </div>
+        <div class="status-badge status-resolved">✓ RESOLVED</div>
+      </div>
+      <div class="ticket-dates">Sep 2024 — Oct 2024</div>
+      <ul>
+        <li>Reported bugs in Jira with detailed reproduction steps.</li>
+        <li>Ran automation test scenarios using Selenium and TestNG.</li>
+      </ul>
+    </div>
+
+    <div class="ticket">
+      <div class="ticket-top">
+        <div>
+          <div class="ticket-id">TICKET-04</div>
+          <div class="ticket-role">Freelance Software Tester</div>
+          <div class="ticket-org">Independent · Remote</div>
+        </div>
+        <div class="status-badge status-active"><span class="pulse"></span>ACTIVE</div>
+      </div>
+      <div class="ticket-dates">Dec 2023 — Present</div>
+      <ul>
+        <li>Tested high-traffic mobile apps — Musheer, StopScroll, Live Caption — with hundreds of thousands of combined Play Store installs.</li>
+        <li>Authored 100+ detailed test cases in Zephyr for comprehensive coverage.</li>
+        <li>Manual testing that surfaced critical bugs, contributing to a 30% improvement in app ratings.</li>
+        <li>Documented every bug in Jira with precise repro steps.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap"><div class="divider"></div></div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">03 / Skills</div>
+      <div class="sec-title">Toolbox</div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Testing tools</div>
+      <div class="tags">
+        <span class="tag tools">Jira</span>
+        <span class="tag tools">Zephyr</span>
+        <span class="tag tools">Postman</span>
+        <span class="tag tools">Selenium</span>
+        <span class="tag tools">TestNG</span>
+        <span class="tag tools">Azure DevOps</span>
+        <span class="tag tools">Trello</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Languages</div>
+      <div class="tags">
+        <span class="tag lang">Java</span>
+        <span class="tag lang">Python</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Practices</div>
+      <div class="tags">
+        <span class="tag practice">Manual Testing</span>
+        <span class="tag practice">Automation Testing</span>
+        <span class="tag practice">API Testing</span>
+        <span class="tag practice">Regression Testing</span>
+        <span class="tag practice">Test Case Design</span>
+        <span class="tag practice">Bug Reporting</span>
+        <span class="tag practice">Agile / Scrum</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><div class="divider"></div></div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">04 / Projects</div>
+      <div class="sec-title">Case studies</div>
+    </div>
+
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-id">PROJ-01</span><span class="proj-type">Mobile</span></div>
+        <div class="proj-title">Musheer</div>
+        <div class="proj-desc">Manual testing across releases for a high-install consumer mobile app, with structured Zephyr test cases and Jira bug tracking.</div>
+        <div class="proj-tags"><span>Zephyr</span><span>Jira</span><span>Manual</span></div>
+        <div class="proj-metric">↑ Contributed to a 30% ratings improvement</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-id">PROJ-02</span><span class="proj-type">Mobile</span></div>
+        <div class="proj-title">StopScroll</div>
+        <div class="proj-desc">Functional and usability testing on a widely-installed productivity app, catching critical bugs pre-release.</div>
+        <div class="proj-tags"><span>Zephyr</span><span>Jira</span><span>Manual</span></div>
+        <div class="proj-metric">↑ Part of 100+ authored test cases</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-id">PROJ-03</span><span class="proj-type">Mobile</span></div>
+        <div class="proj-title">Live Caption</div>
+        <div class="proj-desc">Cross-device manual test coverage for an accessibility-focused app, documented for reproducibility and rapid dev fixes.</div>
+        <div class="proj-tags"><span>Zephyr</span><span>Jira</span><span>Manual</span></div>
+        <div class="proj-metric">↑ Hundreds of thousands of combined installs</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-id">PROJ-04</span><span class="proj-type">Web · Enterprise</span></div>
+        <div class="proj-title">Enterprise Web Platform</div>
+        <div class="proj-desc">Large-scale government-sector web platform — detailed test case design plus manual and Selenium/TestNG automated testing against business requirements, with client-facing demos and user guides.</div>
+        <div class="proj-tags"><span>Selenium</span><span>Java</span><span>TestNG</span></div>
+        <div class="proj-metric">↑ Improved automated coverage, less manual effort</div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><div class="divider"></div></div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">05 / Education &amp; Credentials</div>
+      <div class="sec-title">Background</div>
+    </div>
+    <div class="creds">
+      <div>
+        <h4>Education</h4>
+        <ul>
+          <li><strong>B.Sc. Electrical Engineering</strong> — Future University in Egypt</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Courses</h4>
+        <ul>
+          <li><strong>Manual Software Testing Concepts and Tools</strong> — Udemy</li>
+          <li><strong>API Software Testing</strong> — Udemy</li>
+          <li><strong>Automation Testing with Java</strong> — Udemy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap contact-box">
+    <div class="contact-title">Have a product that needs testing?</div>
+    <p class="contact-sub">Web or mobile, manual or automated — send over the details and I'll follow up within a day.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:saherhamada97@gmail.com">saherhamada97@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+201147755286">+20 114 775 5286</a>
+    </div>
+    <div class="foot-note">Saher Hamada Ali · Cairo, Egypt · QA Engineer</div>
+  </div>
+</footer>
+
+<script>
+  // Respect reduced motion: skip staggered reveal, show immediately
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('#typed-lines .line').forEach(el => {
+      el.style.animation = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
